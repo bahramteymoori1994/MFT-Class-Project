@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -37,7 +38,8 @@ public class MFTClass {
     private String location;
 
     @Column(name = "day_of_week")
-    private String dayOfWeek;
+    @Enumerated(EnumType.ORDINAL)
+    private DayOfWeek dayOfWeek;
 
     @Column(name = "start_time")
     private LocalTime startTime;
