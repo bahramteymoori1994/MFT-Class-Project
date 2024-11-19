@@ -1,5 +1,6 @@
 package com.example.mftclassproject.student.model.entity;
 
+import com.example.mftclassproject.mftclass.model.entity.MFTClass;
 import com.example.mftclassproject.person.entity.Person;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -24,4 +27,6 @@ public class Student extends Person {
     @Column(name = "id")
     private Long id;
 
+    @ManyToMany
+    private List<MFTClass> mftClasses;
 }
