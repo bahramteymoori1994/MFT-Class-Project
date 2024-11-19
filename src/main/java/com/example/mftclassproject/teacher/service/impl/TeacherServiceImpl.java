@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TeacherServiceImpl implements TeacherService
-{
+public class TeacherServiceImpl implements TeacherService {
+
     private final TeacherRepository teacherRepository;
 
     public TeacherServiceImpl(TeacherRepository teacherRepository) {
@@ -17,27 +17,44 @@ public class TeacherServiceImpl implements TeacherService
     }
 
     @Override
-    public Teacher save(Teacher teacher) {
-        return null;
+    public void save(Teacher teacher) {
+        if(! teacherRepository.existsTeacherByUsername(teacher.getUsername())) {
+            teacherRepository.save(teacher);
+        }
     }
 
     @Override
-    public Teacher update(Teacher teacher) {
-        return null;
+    public void update(Teacher teacher) {
+        teacherRepository.save(teacher);
     }
 
     @Override
     public void deleteById(Long id) {
+        teacherRepository.deleteById(id);
+    }
 
+    @Override
+    public Teacher findByUsername(String username) {
+        return teacherRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return teacherRepository.existsTeacherByUsername(username);
     }
 
     @Override
     public Teacher findById(Long id) {
-        return null;
+        return teacherRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Teacher> findAll() {
-        return List.of();
+        return teacherRepository.findAll();
+    }
+
+    @Override
+    public Teacher findByUsernameAndPassword(String username, String password) {
+        return null;
     }
 }

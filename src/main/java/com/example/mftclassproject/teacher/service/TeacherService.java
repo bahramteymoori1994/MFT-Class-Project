@@ -6,9 +6,12 @@ import java.util.List;
 
 public interface TeacherService
 {
-    Teacher save(Teacher teacher);
-    Teacher update(Teacher teacher);
+    void save(Teacher teacher);
+    void update(Teacher teacher);
     void deleteById(Long id);
+    Teacher findByUsername(String username);
+    boolean existsByUsername(String username);
     Teacher findById(Long id);
     List<Teacher> findAll();
+    Teacher findByUsernameAndPassword(String username, String password);
 }

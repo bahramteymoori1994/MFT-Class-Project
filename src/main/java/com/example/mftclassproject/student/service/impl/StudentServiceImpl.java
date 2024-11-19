@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentServiceImpl implements StudentService
-{
+public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
@@ -17,27 +16,44 @@ public class StudentServiceImpl implements StudentService
     }
 
     @Override
-    public Student save(Student student) {
-        return null;
+    public void save(Student student) {
+        if(! studentRepository.existsStudentByUsername(student.getUsername())) {
+            studentRepository.save(student);
+        }
     }
 
     @Override
-    public Student update(Student student) {
-        return null;
+    public void update(Student student) {
+        studentRepository.save(student);
     }
 
     @Override
     public void deleteById(Long id) {
+        studentRepository.deleteById(id);
+    }
 
+    @Override
+    public Student findByUsername(String username) {
+        return studentRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return studentRepository.existsStudentByUsername(username);
     }
 
     @Override
     public Student findById(Long id) {
-        return null;
+        return studentRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<Student> findAll() {
-        return List.of();
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public Student findByUsernameAndPassword(String username, String password) {
+        return null;
     }
 }

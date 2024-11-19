@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface StudentService
 {
-    Student save(Student student);
-    Student update(Student student);
+    void save(Student student);
+    void update(Student student);
     void deleteById(Long id);
+    Student findByUsername(String username);
+    boolean existsByUsername(String username);
     Student findById(Long id);
     List<Student> findAll();
+    Student findByUsernameAndPassword(String username, String password);
+
 }
