@@ -24,6 +24,9 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "title")
+    private String title;
+
     @OneToMany(fetch = FetchType.EAGER)
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "lesson")
     private List<MFTClass> mftClasses;

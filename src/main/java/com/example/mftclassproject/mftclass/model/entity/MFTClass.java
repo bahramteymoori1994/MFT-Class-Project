@@ -47,6 +47,18 @@ public class MFTClass {
     @Column(name = "end_time")
     private LocalTime endTime;
 
+    @Column(name = "online_code")
+    private int onlineCode;
+
+    @Column(name = "in_person_code")
+    private int inPersonCode;
+
+    @Column(name = "type")
+    private ClassType classType;
+
+    @Column(name = "capacity")
+    private int capacity;
+
     @ManyToOne
     @JoinColumn(name = "lesson_id", foreignKey = @ForeignKey(name = "fk_class_lesson"))
     private Lesson lesson;

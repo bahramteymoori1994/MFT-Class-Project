@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MFT Class</title>
+</head>
+<body>
+<h1>MFT Class</h1>
+<form th:action="@{/mftclasses}" th:method="post" th:object="${mftClass}">
+
+    <select name="lesson" id="lesson">
+        <option th:each="lesson : ${allLessons}" th:value="${lesson}" th:text="${lesson.title}" th:field="*{lesson}"></option>
+    </select>
+
+    <select name="teacher" id="teacher">
+        <option th:each="teacher : ${allTeachers}" th:value="${teacher}" th:text="${teacher.family}" th:field="*{teacher}"></option>
+    </select>
+
+    <select name="classType" id="classType" th:field="*{classType}">
+        <option>ONLINE</option>
+        <option>IN_PERSON</option>
+        <option>BLENDED</option>
+    </select>
+
+    <input type="date" name="startDate" id="startDate" th:field="*{startDate}">
+
+    <select name="location" id="location" th:field="*{location}">
+        <option>Saadat Abad</option>
+        <option>Vanak</option>
+        <option>Karaj</option>
+    </select>
+
+    <select name="dayOfWeek" id="dayOfWeek" th:field="*{dayOfWeek}">
+        <option>SATURDAY</option>
+        <option>SUNDAY</option>
+        <option>MONDAY</option>
+        <option>TUESDAY</option>
+        <option>WEDNESDAY</option>
+        <option>THURSDAY</option>
+        <option>FRIDAY</option>
+    </select>
+
+    <input type="time" name="startTime" id="startTime" th:field="*{startTime}">
+    <input type="time" name="endTime" id="endTime" th:field="*{endTime}">
+
+    <input type="number" name="sessionNumber" id="sessionNumber">
+
+    <input type="number" name="onlineCode" id="onlineCode" th:field="*{onlineCode}">
+    <input type="number" name="inPersonCode" id="inPersonCode" th:field="*{inPersonCode}">
+
+    <input type="number" name="capacity" id="capacity" th:field="*{capacity}">
+
+    <input type="submit" value="Save">
+
+</form>
+
+<h2 th:dir="ltr" th:if="${mftClasses.isEmpty()}">No Content</h2>
+<table th:if="${not mftClasses.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Lesson</th>
+        <th>Teacher</th>
+        <th>Type</th>
+        <th>Start Date</th>
+        <th>Location</th>
+        <th>Day</th>
+        <th>Start Hour</th>
+        <th>End Hour</th>
+        <th>Number of Online Students</th>
+        <th>Number of InPerson Students</th>
+        <th>Number of Sessions</th>
+        <th>Online Code</th>
+        <th>InPerson Code</th>
+        <th>Capacity</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mftClass : ${mftClasses}">
+        <td th:text="${mftClass.id}"></td>
+        <td th:text="${mftClass.lesson.title}"></td>
+        <td th:text="${mftClass.teacher.family}"></td>
+        <td th:text="${mftClass.classType}"></td>
+        <td th:text="${mftClass.startDate}"></td>
+        <td th:text="${mftClass.location}"></td>
+        <td th:text="${mftClass.dayOfWeek}"></td>
+        <td th:text="${mftClass.startTime}"></td>
+        <td th:text="${mftClass.endTime}"></td>
+        <td th:text="${mftClass.onlineStudents.size()}"></td>
+        <td th:text="${mftClass.inPersonStudents.size()}"></td>
+        <td th:text="${mftClass.lessonSessions.size()}"></td>
+        <td th:text="${mftClass.onlineCode}"></td>
+        <td th:text="${mftClass.inPersonCode}"></td>
+        <td th:text="${mftClass.capacity}"></td>
+        <td>
+            <button th:data-name="${mftClass.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+            <button th:data-name="${mftClass.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<script>
+    function remove(id){
+        fetch("/tickets/"+id,{
+            method:"DELETE"
+        });
+        window.location.replace("/tickets");
+    }
+
+    // function edit(id){
+    //
+    //
+    // }
+
+</script>
+</body>
+</html>
