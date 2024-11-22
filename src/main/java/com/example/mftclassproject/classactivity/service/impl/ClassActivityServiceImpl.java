@@ -17,27 +17,22 @@ public class ClassActivityServiceImpl implements ClassActivityService
     }
 
     @Override
-    public ClassActivity save(ClassActivity classActivity) {
-        return null;
+    public void  save(ClassActivity classActivity) {classActivityRepository.save(classActivity);}
+
+    @Override
+    public void  update(ClassActivity classActivity) {
+        classActivityRepository.save(classActivity);
     }
 
     @Override
-    public ClassActivity update(ClassActivity classActivity) {
-        return null;
-    }
+    public void deleteById(Long id) {classActivityRepository.deleteById(id);}
 
     @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
-    public ClassActivity findById(Long id) {
-        return null;
-    }
+    public ClassActivity findById(Long id) {return
+        classActivityRepository.findById(id).orElse(null);}
 
     @Override
     public List<ClassActivity> findAll() {
-        return List.of();
+        return classActivityRepository.findAll();
     }
 }

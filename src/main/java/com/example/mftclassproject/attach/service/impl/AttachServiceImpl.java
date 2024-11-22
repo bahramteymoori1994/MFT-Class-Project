@@ -17,27 +17,26 @@ public class AttachServiceImpl implements AttachService
     }
 
     @Override
-    public Attach save(Attach attach) {
-        return null;
+    public void save(Attach attach) {
+        attachRepository.save(attach);
     }
 
     @Override
-    public Attach update(Attach attach) {
-        return null;
+    public void update(Attach attach) {
+        attachRepository.save(attach);
     }
 
     @Override
     public void deleteById(Long id) {
-
     }
 
     @Override
     public Attach getById(Long id) {
-        return null;
+        return attachRepository.getById(id);
     }
 
     @Override
     public List<Attach> getAll() {
-        return List.of();
+        return attachRepository.findAll();
     }
 }
