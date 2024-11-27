@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -89,8 +90,8 @@ public class MFTClass {
     @JoinColumn(name = "teacher_id", foreignKey = @ForeignKey(name = "fk_class_teacher"))
     private Teacher teacher;
 
-    @OneToMany(fetch = FetchType.EAGER)
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mftClass")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST , CascadeType.MERGE})
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mftClass", cascade = {CascadeType.PERSIST , CascadeType.MERGE})
     @JoinTable(name = "class_lesson_session_tbl",
             joinColumns = @JoinColumn(name = "class_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_session_id"),
@@ -98,4 +99,11 @@ public class MFTClass {
             inverseForeignKey = @ForeignKey(name = "fk_inverse_class_lesson_session")
     )
     private List<LessonSession> lessonSessions;
+
+    public void addLessonSession(LessonSession lessonSession) {
+        if (this.lessonSessions == null) {
+            this.lessonSessions = new ArrayList<>();
+        }
+        lessonSessions.add(lessonSession);
+    }
 }

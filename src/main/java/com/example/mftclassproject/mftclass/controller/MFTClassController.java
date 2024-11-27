@@ -1,16 +1,16 @@
 package com.example.mftclassproject.mftclass.controller;
 
+import com.example.mftclassproject.lesson.model.entity.Lesson;
 import com.example.mftclassproject.lesson.service.LessonService;
+import com.example.mftclassproject.lessonsession.model.entity.LessonSession;
 import com.example.mftclassproject.mftclass.model.entity.MFTClass;
 import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
 import com.example.mftclassproject.student.service.StudentService;
+import com.example.mftclassproject.teacher.model.entity.Teacher;
 import com.example.mftclassproject.teacher.service.TeacherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/mftclasses")
@@ -39,9 +39,31 @@ public class MFTClassController {
     }
 
     @PostMapping
-    public String saveMFTClass(MFTClass mftClass, Model model, @ModelAttribute("sessionNumber") int sessionNumber ) {
-        
+    public String saveMFTClass(
+            MFTClass mftClass,
+            Model model,
+            @ModelAttribute("lesson") Long lessonId,
+            @ModelAttribute("teacher") Long teacherId,
+            @ModelAttribute("sessionNumber") int sessionNumber
+    ) {
+
+        Lesson lesson = lessonService.findById(lessonId);
+        Teacher teacher = teacherService.findById(teacherId);
+
+        mftClass.setLesson(lesson);
+        mftClass.setTeacher(teacher);
+
+        for (int i=0; i<sessionNumber; i++){
+            LessonSession lessonSession = new LessonSession();
+            mftClass.addLessonSession(lessonSession);
+        }
         mftClassService.save(mftClass);
+        return "redirect:/mftclasses";
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public String deleteMFTClass(@PathVariable Long id) {
+        mftClassService.delete(id);
         return "redirect:/mftclasses";
     }
 }
