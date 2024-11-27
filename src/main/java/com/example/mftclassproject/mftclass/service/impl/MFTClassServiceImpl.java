@@ -1,9 +1,9 @@
-package com.example.mftclassproject.mftclass.service;
+package com.example.mftclassproject.mftclass.service.impl;
 
-import com.example.mftclassproject.mftclass.model.entity.ClassType;
+import com.example.mftclassproject.mftclass.model.enums.ClassType;
 import com.example.mftclassproject.mftclass.model.entity.MFTClass;
 import com.example.mftclassproject.mftclass.repository.MFTClassRepository;
-import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
+import com.example.mftclassproject.mftclass.service.MFTClassService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

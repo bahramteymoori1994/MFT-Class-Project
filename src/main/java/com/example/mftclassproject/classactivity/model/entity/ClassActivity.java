@@ -1,7 +1,7 @@
 package com.example.mftclassproject.classactivity.model.entity;
 
 import com.example.mftclassproject.lessonsession.model.entity.LessonSession;
-import com.example.mftclassproject.mftclass.model.entity.ClassType;
+import com.example.mftclassproject.mftclass.model.enums.ClassType;
 import com.example.mftclassproject.student.model.entity.Student;
 import jakarta.persistence.*;
 import lombok.*;

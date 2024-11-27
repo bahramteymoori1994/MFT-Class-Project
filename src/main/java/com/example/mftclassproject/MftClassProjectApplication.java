@@ -2,9 +2,9 @@ package com.example.mftclassproject;
 
 import com.example.mftclassproject.lesson.model.entity.Lesson;
 import com.example.mftclassproject.lesson.service.LessonService;
-import com.example.mftclassproject.mftclass.model.entity.ClassType;
+import com.example.mftclassproject.mftclass.model.enums.ClassType;
 import com.example.mftclassproject.mftclass.model.entity.MFTClass;
-import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
+import com.example.mftclassproject.mftclass.service.MFTClassService;
 import com.example.mftclassproject.student.model.entity.Student;
 import com.example.mftclassproject.student.service.StudentService;
 import com.example.mftclassproject.teacher.model.entity.Teacher;

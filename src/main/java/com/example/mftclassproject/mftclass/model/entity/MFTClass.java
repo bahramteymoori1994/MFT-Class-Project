@@ -2,6 +2,7 @@ package com.example.mftclassproject.mftclass.model.entity;
 
 import com.example.mftclassproject.lesson.model.entity.Lesson;
 import com.example.mftclassproject.lessonsession.model.entity.LessonSession;
+import com.example.mftclassproject.mftclass.model.enums.ClassType;
 import com.example.mftclassproject.student.model.entity.Student;
 import com.example.mftclassproject.teacher.model.entity.Teacher;
 import jakarta.persistence.*;
@@ -43,22 +44,24 @@ public class MFTClass {
     private DayOfWeek dayOfWeek;
 
     @Column(name = "start_time")
+    @Temporal(value = TemporalType.TIME)
     private LocalTime startTime;
 
     @Column(name = "end_time")
+    @Temporal(value = TemporalType.TIME)
     private LocalTime endTime;
 
     @Column(name = "online_code")
-    private int onlineCode;
+    private Integer onlineCode;
 
     @Column(name = "in_person_code")
-    private int inPersonCode;
+    private Integer inPersonCode;
 
     @Column(name = "type")
     private ClassType classType;
 
     @Column(name = "capacity")
-    private int capacity;
+    private Integer capacity;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", foreignKey = @ForeignKey(name = "fk_class_lesson"))

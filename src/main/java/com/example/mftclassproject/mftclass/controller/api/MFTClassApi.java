@@ -1,8 +1,8 @@
 package com.example.mftclassproject.mftclass.controller.api;
 
 
-import com.example.mftclassproject.mftclass.model.entity.ClassType;
-import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
+import com.example.mftclassproject.mftclass.model.enums.ClassType;
+import com.example.mftclassproject.mftclass.service.MFTClassService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

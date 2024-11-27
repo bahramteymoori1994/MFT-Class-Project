@@ -4,7 +4,7 @@ import com.example.mftclassproject.lesson.model.entity.Lesson;
 import com.example.mftclassproject.lesson.service.LessonService;
 import com.example.mftclassproject.lessonsession.model.entity.LessonSession;
 import com.example.mftclassproject.mftclass.model.entity.MFTClass;
-import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
+import com.example.mftclassproject.mftclass.service.MFTClassService;
 import com.example.mftclassproject.student.service.StudentService;
 import com.example.mftclassproject.teacher.model.entity.Teacher;
 import com.example.mftclassproject.teacher.service.TeacherService;

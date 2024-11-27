@@ -1,6 +1,6 @@
-package com.example.mftclassproject.mftclass.service.impl;
+package com.example.mftclassproject.mftclass.service;
 
-import com.example.mftclassproject.mftclass.model.entity.ClassType;
+import com.example.mftclassproject.mftclass.model.enums.ClassType;
 import com.example.mftclassproject.mftclass.model.entity.MFTClass;
 
 import java.util.List;
