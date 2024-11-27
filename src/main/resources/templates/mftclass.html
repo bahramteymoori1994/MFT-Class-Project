@@ -8,18 +8,34 @@
 <h1>MFT Class</h1>
 
 <br><br><br>
-<div>
-    <input type="text" name="lessonTitle" placeholder="Type to search by title" oninput="findByLessonName(this.value)">
-    <input type="text" name="teacherFamily" placeholder="Type to search by teacher" oninput="findByTeacherFamily(this.value)">
+<div style="display: flex">
+    <div>
+        <input type="text" name="lessonTitle" placeholder="Type to search by title" oninput="findByLessonName(this.value)">
+    </div>
 
-    <label for="classType">Online</label>
-    <input type="checkbox" name="classType" id="online" onclick="toggleCheckbox(this, 'classType', 'ONLINE')">
+    <div style="margin-left: 50px">
+        <input type="text" name="teacherFamily" placeholder="Type to search by teacher" oninput="findByTeacherFamily(this.value)">
+    </div>
 
-    <label for="classType">In_Person</label>
-    <input type="checkbox" name="classType" id="in_person" onclick="toggleCheckbox(this, 'classType', 'IN_PERSON')">
+    <div style="margin-left: 50px">
+        <label for="classType">Online</label>
+        <input type="checkbox" name="classType" id="online" onclick="toggleCheckbox(this, 'classType', 'ONLINE')">
 
-    <label for="classType">Blended</label>
-    <input type="checkbox" name="classType" id="blended" onclick="toggleCheckbox(this, 'classType', 'BLENDED')">
+        <label for="classType">In_Person</label>
+        <input type="checkbox" name="classType" id="in_person" onclick="toggleCheckbox(this, 'classType', 'IN_PERSON')">
+
+        <label for="classType">Blended</label>
+        <input type="checkbox" name="classType" id="blended" onclick="toggleCheckbox(this, 'classType', 'BLENDED')">
+    </div>
+
+    <div style="margin-left: 50px">
+        <label for="location">Location</label>
+        <select name="locationFind" id="locationFind" onchange="findByLocation(this.value)" th:selected="'none'">
+            <option value="none" disabled selected>Select a location</option>
+            <option value="Vanak">Vanak</option>
+            <option value="Karaj">Karaj</option>
+        </select>
+    </div>
 </div>
 
 <br><br><br>
@@ -372,6 +388,75 @@
         });
     }
 
+
+    function findByLocation(location) {
+
+        $.ajax({
+            url: "/mftclasses/findByLocation/" + location,
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                // Clear previous results
+                $("#resultTable tbody").empty();
+
+                if (Array.isArray(response) && response.length > 0) {
+                    response.forEach(function (mftClass) {
+
+                        var row = "<tr>" +
+                            "<td>" + mftClass.id + "</td>" +
+                            "<td>" + mftClass.lesson.title + "</td>" +
+                            "<td>" + mftClass.teacher.family + "</td>" +
+                            "<td>" + mftClass.classType + "</td>" +
+                            "<td>" + mftClass.startDate + "</td>" +
+                            "<td>" + mftClass.location + "</td>" +
+                            "<td>" + mftClass.dayOfWeek + "</td>" +
+                            "<td>" + mftClass.startTime + "</td>" +
+                            "<td>" + mftClass.endTime + "</td>" +
+                            // "<td>" + mftClass.onlineStudents.size + "</td>" +
+                            // "<td>" + mftClass.inPersonStudents.size + "</td>" +
+                            // "<td>" + mftClass.lessonSessions.size + "</td>" +
+                            "<td>" + mftClass.onlineCode + "</td>" +
+                            "<td>" + mftClass.inPersonCode + "</td>" +
+                            "<td>" + mftClass.capacity + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                            "</tr>";
+
+                        $("#resultTable tbody").append(row);
+                    });
+                } else if (typeof response === 'object' && response !== null) {
+
+                    var row = "<tr>" +
+                        "<td>" + response.id + "</td>" +
+                        "<td>" + response.lesson.title + "</td>" +
+                        "<td>" + response.teacher.family + "</td>" +
+                        "<td>" + response.classType + "</td>" +
+                        "<td>" + response.startDate + "</td>" +
+                        "<td>" + response.location + "</td>" +
+                        "<td>" + response.dayOfWeek + "</td>" +
+                        "<td>" + response.address + "</td>" +
+                        "<td>" + response.startTime + "</td>" +
+                        "<td>" + response.endTime + "</td>" +
+                        // "<td>" + response.onlineStudents.size + "</td>" +
+                        // "<td>" + response.inPersonStudents.size + "</td>" +
+                        // "<td>" + response.lessonSessions.size + "</td>" +
+                        "<td>" + response.onlineCode + "</td>" +
+                        "<td>" + response.inPersonCode + "</td>" +
+                        "<td>" + response.capacity + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                        "</tr>";
+                    $("#resultTable tbody").append(row);
+                } else {
+                    var noDataRow = "<tr><td colspan='3'>No records found</td></tr>";
+                    $("#resultTable tbody").append(noDataRow);
+                }
+            },
+            error: function (xhr, status, error) {
+                // alert("Error fetching data: " + error);
+            }
+        });
+    }
 
 
 </script>

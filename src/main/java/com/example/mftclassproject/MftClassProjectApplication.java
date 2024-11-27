@@ -140,7 +140,7 @@ public class MftClassProjectApplication {
                         .teacher(teacher)
                         .classType(ClassType.BLENDED)
                         .startDate(LocalDate.now())
-                        .location("sadeghiyeh")
+                        .location("Karaj")
                         .dayOfWeek(DayOfWeek.SUNDAY)
                         .startTime(LocalTime.of(8,30))
                         .endTime(LocalTime.of(11,30))
@@ -153,10 +153,6 @@ public class MftClassProjectApplication {
                         .build();
 
         mftClassService.save(mftClass);
-
-        System.out.println(mftClassService.findByLessonTitle("ja"));
-        System.out.println(mftClassService.findByLessonTitle("HTML"));
-        System.out.println(mftClassService.findByLessonTitle("JAVA"));
 
     }
 

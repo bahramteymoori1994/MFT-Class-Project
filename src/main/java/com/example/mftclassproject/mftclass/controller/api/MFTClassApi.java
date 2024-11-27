@@ -54,4 +54,16 @@ public class MFTClassApi {
         }
     }
 
+
+    @GetMapping(path = "/mftclasses/findByLocation/{location}")
+    public ResponseEntity<?> findByLocation(@PathVariable String location) {
+        Object result = mftClassService.findByLocation(location);
+        if (result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.status(404)
+                    .body("No records found for this location: " + location);
+        }
+    }
+
 }

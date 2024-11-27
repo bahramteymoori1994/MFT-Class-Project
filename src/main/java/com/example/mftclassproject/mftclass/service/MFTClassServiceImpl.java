@@ -55,4 +55,9 @@ public class MFTClassServiceImpl implements MFTClassService {
     public List<MFTClass> findByClassType(ClassType classType) {
         return mftClassRepository.findByClassType(classType);
     }
+
+    @Override
+    public List<MFTClass> findByLocation(String location) {
+        return mftClassRepository.findByLocation(location);
+    }
 }

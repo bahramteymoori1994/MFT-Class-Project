@@ -12,4 +12,5 @@ public interface MFTClassRepository extends JpaRepository<MFTClass, Long> {
     List<MFTClass> findByLessonTitleIsLike(String lessonTitle);
     List<MFTClass> findByTeacherFamilyIsLike(String teacherFamily);
     List<MFTClass> findByClassType(ClassType classType);
+    List<MFTClass> findByLocation(String location);
 }

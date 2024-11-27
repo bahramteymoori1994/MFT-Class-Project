@@ -14,4 +14,5 @@ public interface MFTClassService {
     List<MFTClass> findByLessonTitle(String lessonTitle);
     List<MFTClass> findByTeacherFamily(String teacherFamily);
     List<MFTClass> findByClassType(ClassType classType);
+    List<MFTClass> findByLocation(String location);
 }
