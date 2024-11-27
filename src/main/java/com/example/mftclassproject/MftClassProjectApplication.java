@@ -2,6 +2,9 @@ package com.example.mftclassproject;
 
 import com.example.mftclassproject.lesson.model.entity.Lesson;
 import com.example.mftclassproject.lesson.service.LessonService;
+import com.example.mftclassproject.mftclass.model.entity.ClassType;
+import com.example.mftclassproject.mftclass.model.entity.MFTClass;
+import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
 import com.example.mftclassproject.student.model.entity.Student;
 import com.example.mftclassproject.student.service.StudentService;
 import com.example.mftclassproject.teacher.model.entity.Teacher;
@@ -9,17 +12,23 @@ import com.example.mftclassproject.teacher.service.TeacherService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @SpringBootApplication
 public class MftClassProjectApplication {
 
     private static LessonService lessonService;
     private static StudentService studentService;
     private static TeacherService teacherService;
+    private static MFTClassService mftClassService;
 
-    public MftClassProjectApplication(LessonService lessonService, StudentService studentService, TeacherService teacherService) {
+    public MftClassProjectApplication(LessonService lessonService, StudentService studentService, TeacherService teacherService, MFTClassService mftClassService) {
         MftClassProjectApplication.lessonService = lessonService;
         MftClassProjectApplication.studentService = studentService;
         MftClassProjectApplication.teacherService = teacherService;
+        MftClassProjectApplication.mftClassService = mftClassService;
     }
 
     public static void main(String[] args) {
@@ -28,7 +37,7 @@ public class MftClassProjectApplication {
         Lesson lesson =
                 Lesson
                         .builder()
-                        .title("Java SE")
+                        .title("JAVA SE")
                         .build();
 
         lessonService.save(lesson);
@@ -36,7 +45,7 @@ public class MftClassProjectApplication {
         Lesson lesson1 =
                 Lesson
                         .builder()
-                        .title("Java EE")
+                        .title("JAVA EE")
                         .build();
 
         lessonService.save(lesson1);
@@ -98,7 +107,7 @@ public class MftClassProjectApplication {
                 Teacher
                         .builder()
                         .name("navid")
-                        .family("sadeghi")
+                        .family("SADEGHI")
                         .username("navid123")
                         .password("1213456")
                         .email("navid@gmail.com")
@@ -113,7 +122,7 @@ public class MftClassProjectApplication {
                 Teacher
                         .builder()
                         .name("sina")
-                        .family("kamali")
+                        .family("KAMALI")
                         .username("sina123")
                         .password("1213456")
                         .email("sina@gmail.com")
@@ -124,6 +133,30 @@ public class MftClassProjectApplication {
 
         teacherService.save(teacher1);
 
+        MFTClass mftClass =
+                MFTClass
+                        .builder()
+                        .lesson(lesson)
+                        .teacher(teacher)
+                        .classType(ClassType.BLENDED)
+                        .startDate(LocalDate.now())
+                        .location("sadeghiyeh")
+                        .dayOfWeek(DayOfWeek.SUNDAY)
+                        .startTime(LocalTime.of(8,30))
+                        .endTime(LocalTime.of(11,30))
+                        .onlineStudents(null)
+                        .inPersonStudents(null)
+                        .lessonSessions(null)
+                        .onlineCode(12)
+                        .inPersonCode(120)
+                        .capacity(14)
+                        .build();
+
+        mftClassService.save(mftClass);
+
+        System.out.println(mftClassService.findByLessonTitle("ja"));
+        System.out.println(mftClassService.findByLessonTitle("HTML"));
+        System.out.println(mftClassService.findByLessonTitle("JAVA"));
 
     }
 

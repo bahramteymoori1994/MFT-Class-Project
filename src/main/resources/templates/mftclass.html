@@ -6,113 +6,137 @@
 </head>
 <body>
 <h1>MFT Class</h1>
-<form th:action="@{/mftclasses}" th:method="post" th:object="${mftClass}">
 
-    <label for="lesson">Lesson</label>
-    <select name="lesson" id="lesson">
-        <option th:each="lesson : ${allLessons}" th:value="${lesson.id}" th:text="${lesson.title}"></option>
-    </select>
+<br><br><br>
+<div>
+    <input type="text" name="lessonTitle" placeholder="Type to search by title" oninput="findByLessonName(this.value)">
+    <input type="text" name="teacherFamily" placeholder="Type to search by teacher" oninput="findByTeacherFamily(this.value)">
 
-    <label for="teacher">Teacher</label>
-    <select name="teacher" id="teacher">
-        <option th:each="teacher : ${allTeachers}" th:value="${teacher.id}" th:text="${teacher.family}"></option>
-    </select>
+    <label for="classType">Online</label>
+    <input type="checkbox" name="classType" id="online" onclick="toggleCheckbox(this, 'classType', 'ONLINE')">
 
-    <label for="classType">Type</label>
-    <select name="classType" id="classType" th:field="*{classType}">
-        <option th:value="ONLINE">ONLINE</option>
-        <option th:value="IN_PERSON">IN_PERSON</option>
-        <option th:value="BLENDED">BLENDED</option>
-    </select>
+    <label for="classType">In_Person</label>
+    <input type="checkbox" name="classType" id="in_person" onclick="toggleCheckbox(this, 'classType', 'IN_PERSON')">
 
-    <label for="startDate">Start Date</label>
-    <input type="date" name="startDate" id="startDate" th:field="*{startDate}">
+    <label for="classType">Blended</label>
+    <input type="checkbox" name="classType" id="blended" onclick="toggleCheckbox(this, 'classType', 'BLENDED')">
+</div>
 
-    <label for="location">Location</label>
-    <select name="location" id="location" th:field="*{location}">
-        <option th:value="Vanak">Vanak</option>
-        <option th:value="Karaj">Karaj</option>
-    </select>
+<br><br><br>
+<div>
+    <form th:action="@{/mftclasses}" th:method="post" th:object="${mftClass}">
 
-    <label for="dayOfWeek">Date</label>
-    <select name="dayOfWeek" id="dayOfWeek" th:field="*{dayOfWeek}">
-        <option th:value="SATURDAY">SATURDAY</option>
-        <option th:value="SUNDAY">SUNDAY</option>
-        <option th:value="MONDAY">MONDAY</option>
-        <option th:value="TUESDAY">TUESDAY</option>
-        <option th:value="WEDNESDAY">WEDNESDAY</option>
-        <option th:value="THURSDAY">THURSDAY</option>
-        <option th:value="FRIDAY">FRIDAY</option>
-    </select>
+        <label for="lesson">Lesson</label>
+        <select name="lesson" id="lesson">
+            <option th:each="lesson : ${allLessons}" th:value="${lesson.id}" th:text="${lesson.title}"></option>
+        </select>
 
-    <label for="startDate">Start Hour</label>
-    <input type="time" name="startTime" id="startTime" th:field="*{startTime}">
+        <label for="teacher">Teacher</label>
+        <select name="teacher" id="teacher">
+            <option th:each="teacher : ${allTeachers}" th:value="${teacher.id}" th:text="${teacher.family}"></option>
+        </select>
 
-    <label for="endTime">End Hour</label>
-    <input type="time" name="endTime" id="endTime" th:field="*{endTime}">
+        <label for="classType">Type</label>
+        <select name="classType" id="classType" th:field="*{classType}">
+            <option th:value="ONLINE">ONLINE</option>
+            <option th:value="IN_PERSON">IN_PERSON</option>
+            <option th:value="BLENDED">BLENDED</option>
+        </select>
 
-    <label for="sessionNumber">Number of Sessions</label>
-    <input type="number" name="sessionNumber" id="sessionNumber">
+        <label for="startDate">Start Date</label>
+        <input type="date" name="startDate" id="startDate" th:field="*{startDate}">
 
-    <label for="onlineCode">Online Code</label>
-    <input type="number" name="onlineCode" id="onlineCode" th:field="*{onlineCode}">
+        <label for="location">Location</label>
+        <select name="location" id="location" th:field="*{location}">
+            <option th:value="Vanak">Vanak</option>
+            <option th:value="Karaj">Karaj</option>
+        </select>
 
-    <label for="inPersonCode">InPerson Code</label>
-    <input type="number" name="inPersonCode" id="inPersonCode" th:field="*{inPersonCode}">
+        <label for="dayOfWeek">Date</label>
+        <select name="dayOfWeek" id="dayOfWeek" th:field="*{dayOfWeek}">
+            <option th:value="SATURDAY">SATURDAY</option>
+            <option th:value="SUNDAY">SUNDAY</option>
+            <option th:value="MONDAY">MONDAY</option>
+            <option th:value="TUESDAY">TUESDAY</option>
+            <option th:value="WEDNESDAY">WEDNESDAY</option>
+            <option th:value="THURSDAY">THURSDAY</option>
+            <option th:value="FRIDAY">FRIDAY</option>
+        </select>
 
-    <label for="capacity">Capacity</label>
-    <input type="number" name="capacity" id="capacity" th:field="*{capacity}">
+        <label for="startDate">Start Hour</label>
+        <input type="time" name="startTime" id="startTime" th:field="*{startTime}">
 
-    <input type="submit" value="Save">
+        <label for="endTime">End Hour</label>
+        <input type="time" name="endTime" id="endTime" th:field="*{endTime}">
 
-</form>
+        <label for="sessionNumber">Number of Sessions</label>
+        <input type="number" name="sessionNumber" id="sessionNumber">
 
-<h2 th:dir="ltr" th:if="${mftClasses.isEmpty()}">No Content</h2>
-<table th:if="${not mftClasses.isEmpty()}">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Lesson</th>
-        <th>Teacher</th>
-        <th>Type</th>
-        <th>Start Date</th>
-        <th>Location</th>
-        <th>Date</th>
-        <th>Start Hour</th>
-        <th>End Hour</th>
-        <th>Number of Online Students</th>
-        <th>Number of InPerson Students</th>
-        <th>Number of Sessions</th>
-        <th>Online Code</th>
-        <th>InPerson Code</th>
-        <th>Capacity</th>
-        <th>Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="mftClass : ${mftClasses}">
-        <td th:text="${mftClass.id}"></td>
-        <td th:text="${mftClass.lesson.title}"></td>
-        <td th:text="${mftClass.teacher.family}"></td>
-        <td th:text="${mftClass.classType}"></td>
-        <td th:text="${mftClass.startDate}"></td>
-        <td th:text="${mftClass.location}"></td>
-        <td th:text="${mftClass.dayOfWeek}"></td>
-        <td th:text="${mftClass.startTime}"></td>
-        <td th:text="${mftClass.endTime}"></td>
-        <td th:text="${mftClass.onlineStudents.size()}"></td>
-        <td th:text="${mftClass.inPersonStudents.size()}"></td>
-        <td th:text="${mftClass.lessonSessions.size()}"></td>
-        <td th:text="${mftClass.onlineCode}"></td>
-        <td th:text="${mftClass.inPersonCode}"></td>
-        <td th:text="${mftClass.capacity}"></td>
-        <td>
-            <button th:data-name="${mftClass.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
-            <button th:data-name="${mftClass.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <label for="onlineCode">Online Code</label>
+        <input type="number" name="onlineCode" id="onlineCode" th:field="*{onlineCode}">
+
+        <label for="inPersonCode">InPerson Code</label>
+        <input type="number" name="inPersonCode" id="inPersonCode" th:field="*{inPersonCode}">
+
+        <label for="capacity">Capacity</label>
+        <input type="number" name="capacity" id="capacity" th:field="*{capacity}">
+
+        <input type="submit" value="Save">
+
+    </form>
+</div>
+
+<br><br><br>
+<div>
+    <h2 th:dir="ltr" th:if="${mftClasses.isEmpty()}">No Content</h2>
+    <table th:if="${not mftClasses.isEmpty()}" id="resultTable">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Lesson</th>
+            <th>Teacher</th>
+            <th>Type</th>
+            <th>Start Date</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Start Hour</th>
+            <th>End Hour</th>
+            <th>Number of Online Students</th>
+            <th>Number of InPerson Students</th>
+            <th>Number of Sessions</th>
+            <th>Online Code</th>
+            <th>InPerson Code</th>
+            <th>Capacity</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mftClass : ${mftClasses}">
+            <td th:text="${mftClass.id}"></td>
+            <td th:text="${mftClass.lesson.title}"></td>
+            <td th:text="${mftClass.teacher.family}"></td>
+            <td th:text="${mftClass.classType}"></td>
+            <td th:text="${mftClass.startDate}"></td>
+            <td th:text="${mftClass.location}"></td>
+            <td th:text="${mftClass.dayOfWeek}"></td>
+            <td th:text="${mftClass.startTime}"></td>
+            <td th:text="${mftClass.endTime}"></td>
+            <td th:text="${mftClass.onlineStudents.size()}"></td>
+            <td th:text="${mftClass.inPersonStudents.size()}"></td>
+            <td th:text="${mftClass.lessonSessions.size()}"></td>
+            <td th:text="${mftClass.onlineCode}"></td>
+            <td th:text="${mftClass.inPersonCode}"></td>
+            <td th:text="${mftClass.capacity}"></td>
+            <td>
+                <button th:data-name="${mftClass.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+                <button th:data-name="${mftClass.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
 
 
 <script>
@@ -128,6 +152,231 @@
     //
     // }
 
+
+    function findByLessonName(lessonName) {
+
+        $.ajax({
+            url: "/mftclasses/findByLessonName/" + lessonName,
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                // Clear previous results
+                $("#resultTable tbody").empty();
+
+                if (Array.isArray(response) && response.length > 0) {
+                    response.forEach(function (mftClass) {
+
+                        var row = "<tr>" +
+                            "<td>" + mftClass.id + "</td>" +
+                            "<td>" + mftClass.lesson.title + "</td>" +
+                            "<td>" + mftClass.teacher.family + "</td>" +
+                            "<td>" + mftClass.classType + "</td>" +
+                            "<td>" + mftClass.startDate + "</td>" +
+                            "<td>" + mftClass.location + "</td>" +
+                            "<td>" + mftClass.dayOfWeek + "</td>" +
+                            "<td>" + mftClass.startTime + "</td>" +
+                            "<td>" + mftClass.endTime + "</td>" +
+                            // "<td>" + mftClass.onlineStudents.size + "</td>" +
+                            // "<td>" + mftClass.inPersonStudents.size + "</td>" +
+                            // "<td>" + mftClass.lessonSessions.size + "</td>" +
+                            "<td>" + mftClass.onlineCode + "</td>" +
+                            "<td>" + mftClass.inPersonCode + "</td>" +
+                            "<td>" + mftClass.capacity + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                            "</tr>";
+
+                        $("#resultTable tbody").append(row);
+                    });
+                } else if (typeof response === 'object' && response !== null) {
+
+                    var row = "<tr>" +
+                        "<td>" + response.id + "</td>" +
+                        "<td>" + response.lesson.title + "</td>" +
+                        "<td>" + response.teacher.family + "</td>" +
+                        "<td>" + response.classType + "</td>" +
+                        "<td>" + response.startDate + "</td>" +
+                        "<td>" + response.location + "</td>" +
+                        "<td>" + response.dayOfWeek + "</td>" +
+                        "<td>" + response.address + "</td>" +
+                        "<td>" + response.startTime + "</td>" +
+                        "<td>" + response.endTime + "</td>" +
+                        // "<td>" + response.onlineStudents.size + "</td>" +
+                        // "<td>" + response.inPersonStudents.size + "</td>" +
+                        // "<td>" + response.lessonSessions.size + "</td>" +
+                        "<td>" + response.onlineCode + "</td>" +
+                        "<td>" + response.inPersonCode + "</td>" +
+                        "<td>" + response.capacity + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                        "</tr>";
+                    $("#resultTable tbody").append(row);
+                } else {
+                    var noDataRow = "<tr><td colspan='3'>No records found</td></tr>";
+                    $("#resultTable tbody").append(noDataRow);
+                }
+            },
+            error: function (xhr, status, error) {
+                // alert("Error fetching data: " + error);
+            }
+        });
+    }
+
+
+    function findByTeacherFamily(teacherFamily) {
+
+        $.ajax({
+            url: "/mftclasses/findByTeacherFamily/" + teacherFamily,
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                // Clear previous results
+                $("#resultTable tbody").empty();
+
+                if (Array.isArray(response) && response.length > 0) {
+                    response.forEach(function (mftClass) {
+
+                        var row = "<tr>" +
+                            "<td>" + mftClass.id + "</td>" +
+                            "<td>" + mftClass.lesson.title + "</td>" +
+                            "<td>" + mftClass.teacher.family + "</td>" +
+                            "<td>" + mftClass.classType + "</td>" +
+                            "<td>" + mftClass.startDate + "</td>" +
+                            "<td>" + mftClass.location + "</td>" +
+                            "<td>" + mftClass.dayOfWeek + "</td>" +
+                            "<td>" + mftClass.startTime + "</td>" +
+                            "<td>" + mftClass.endTime + "</td>" +
+                            // "<td>" + mftClass.onlineStudents.size + "</td>" +
+                            // "<td>" + mftClass.inPersonStudents.size + "</td>" +
+                            // "<td>" + mftClass.lessonSessions.size + "</td>" +
+                            "<td>" + mftClass.onlineCode + "</td>" +
+                            "<td>" + mftClass.inPersonCode + "</td>" +
+                            "<td>" + mftClass.capacity + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                            "</tr>";
+
+                        $("#resultTable tbody").append(row);
+                    });
+                } else if (typeof response === 'object' && response !== null) {
+
+                    var row = "<tr>" +
+                        "<td>" + response.id + "</td>" +
+                        "<td>" + response.lesson.title + "</td>" +
+                        "<td>" + response.teacher.family + "</td>" +
+                        "<td>" + response.classType + "</td>" +
+                        "<td>" + response.startDate + "</td>" +
+                        "<td>" + response.location + "</td>" +
+                        "<td>" + response.dayOfWeek + "</td>" +
+                        "<td>" + response.address + "</td>" +
+                        "<td>" + response.startTime + "</td>" +
+                        "<td>" + response.endTime + "</td>" +
+                        // "<td>" + response.onlineStudents.size + "</td>" +
+                        // "<td>" + response.inPersonStudents.size + "</td>" +
+                        // "<td>" + response.lessonSessions.size + "</td>" +
+                        "<td>" + response.onlineCode + "</td>" +
+                        "<td>" + response.inPersonCode + "</td>" +
+                        "<td>" + response.capacity + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                        "</tr>";
+                    $("#resultTable tbody").append(row);
+                } else {
+                    var noDataRow = "<tr><td colspan='3'>No records found</td></tr>";
+                    $("#resultTable tbody").append(noDataRow);
+                }
+            },
+            error: function (xhr, status, error) {
+                // alert("Error fetching data: " + error);
+            }
+        });
+    }
+
+
+    function toggleCheckbox(clickedCheckbox, groupName, type) {
+        const checkboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+        checkboxes.forEach((checkbox) => {
+            if (checkbox !== clickedCheckbox) {
+                checkbox.checked = false; // Uncheck others
+            }
+        });
+        findByType(type); // Call your existing function
+    }
+
+    function findByType(classType) {
+
+        $.ajax({
+            url: "/mftclasses/findByType/" + classType,
+            method: "GET",
+            dataType: "json",
+            success: function (response) {
+                // Clear previous results
+                $("#resultTable tbody").empty();
+
+                if (Array.isArray(response) && response.length > 0) {
+                    response.forEach(function (mftClass) {
+
+                        var row = "<tr>" +
+                            "<td>" + mftClass.id + "</td>" +
+                            "<td>" + mftClass.lesson.title + "</td>" +
+                            "<td>" + mftClass.teacher.family + "</td>" +
+                            "<td>" + mftClass.classType + "</td>" +
+                            "<td>" + mftClass.startDate + "</td>" +
+                            "<td>" + mftClass.location + "</td>" +
+                            "<td>" + mftClass.dayOfWeek + "</td>" +
+                            "<td>" + mftClass.startTime + "</td>" +
+                            "<td>" + mftClass.endTime + "</td>" +
+                            // "<td>" + mftClass.onlineStudents.size + "</td>" +
+                            // "<td>" + mftClass.inPersonStudents.size + "</td>" +
+                            // "<td>" + mftClass.lessonSessions.size + "</td>" +
+                            "<td>" + mftClass.onlineCode + "</td>" +
+                            "<td>" + mftClass.inPersonCode + "</td>" +
+                            "<td>" + mftClass.capacity + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                            "<td>" + "<button data-name='" + mftClass.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                            "</tr>";
+
+                        $("#resultTable tbody").append(row);
+                    });
+                } else if (typeof response === 'object' && response !== null) {
+
+                    var row = "<tr>" +
+                        "<td>" + response.id + "</td>" +
+                        "<td>" + response.lesson.title + "</td>" +
+                        "<td>" + response.teacher.family + "</td>" +
+                        "<td>" + response.classType + "</td>" +
+                        "<td>" + response.startDate + "</td>" +
+                        "<td>" + response.location + "</td>" +
+                        "<td>" + response.dayOfWeek + "</td>" +
+                        "<td>" + response.address + "</td>" +
+                        "<td>" + response.startTime + "</td>" +
+                        "<td>" + response.endTime + "</td>" +
+                        // "<td>" + response.onlineStudents.size + "</td>" +
+                        // "<td>" + response.inPersonStudents.size + "</td>" +
+                        // "<td>" + response.lessonSessions.size + "</td>" +
+                        "<td>" + response.onlineCode + "</td>" +
+                        "<td>" + response.inPersonCode + "</td>" +
+                        "<td>" + response.capacity + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='remove(this.getAttribute(\"data-name\"))'>Remove</button>" + "</td>" +
+                        "<td>" + "<button data-name='" + response.id + "' onclick='edit(this.getAttribute(\"data-name\"))'>Edit</button>" + "</td>" +
+                        "</tr>";
+                    $("#resultTable tbody").append(row);
+                } else {
+                    var noDataRow = "<tr><td colspan='3'>No records found</td></tr>";
+                    $("#resultTable tbody").append(noDataRow);
+                }
+            },
+            error: function (xhr, status, error) {
+                // alert("Error fetching data: " + error);
+            }
+        });
+    }
+
+
+
 </script>
+
+<script src="/assets/js/jquery-3.7.1.min.js"></script>
+
 </body>
 </html>

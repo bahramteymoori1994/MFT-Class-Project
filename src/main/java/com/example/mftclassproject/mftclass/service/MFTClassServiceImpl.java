@@ -1,5 +1,6 @@
 package com.example.mftclassproject.mftclass.service;
 
+import com.example.mftclassproject.mftclass.model.entity.ClassType;
 import com.example.mftclassproject.mftclass.model.entity.MFTClass;
 import com.example.mftclassproject.mftclass.repository.MFTClassRepository;
 import com.example.mftclassproject.mftclass.service.impl.MFTClassService;
@@ -38,5 +39,20 @@ public class MFTClassServiceImpl implements MFTClassService {
     @Override
     public MFTClass findById(Long id) {
         return mftClassRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<MFTClass> findByLessonTitle(String lessonTitle) {
+        return mftClassRepository.findByLessonTitleIsLike(lessonTitle.toUpperCase() + "%");
+    }
+
+    @Override
+    public List<MFTClass> findByTeacherFamily(String teacherFamily) {
+        return mftClassRepository.findByTeacherFamilyIsLike(teacherFamily.toUpperCase() + "%");
+    }
+
+    @Override
+    public List<MFTClass> findByClassType(ClassType classType) {
+        return mftClassRepository.findByClassType(classType);
     }
 }
