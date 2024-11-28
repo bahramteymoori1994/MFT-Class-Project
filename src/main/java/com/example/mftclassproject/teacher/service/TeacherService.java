@@ -8,7 +8,7 @@ public interface TeacherService
 {
     void save(Teacher teacher);
     void update(Teacher teacher);
-    void deleteById(Long id);
+    void delete(Long id);
     Teacher findByUsername(String username);
     boolean existsByUsername(String username);
     Teacher findById(Long id);

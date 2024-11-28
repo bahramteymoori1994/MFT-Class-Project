@@ -41,4 +41,10 @@ public class TeacherController {
         log.info("Teacher Updated...!");
         return "redirect:teacher";
     }
+
+    @DeleteMapping(path = "/{id}")
+    public String deleteTeacher(@PathVariable Long id) {
+        teacherService.delete(id);
+        return "redirect:/teacher";
+    }
 }

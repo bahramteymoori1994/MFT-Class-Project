@@ -8,7 +8,7 @@ public interface StudentService
 {
     void save(Student student);
     void update(Student student);
-    void deleteById(Long id);
+    void delete(Long id);
     Student findByUsername(String username);
     boolean existsByUsername(String username);
     Student findById(Long id);
