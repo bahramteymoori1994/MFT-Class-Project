@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Attach</title>
+</head>
+<body>
+
+<h1>Attach</h1>
+
+<form th:action="@{/attach}" th:method="post" th:object="${attach}">
+    <label>File Name</label>
+    <input type="text" name="fileName" id="fileName">
+    <label for="fileType">File Type</label>
+    <select name="fileType" id="fileType" >
+        <option th:value="JPG">JPG</option>
+        <option th:value="PNG">PNG</option>
+        <option th:value="BMP">BMP</option>
+        <option th:value="PDF">PDF</option>
+        <option th:value="TXT">TXT</option>
+    </select>
+    <label>fileSize</label>
+    <input type="number" name="fileSize" id="fileSize">
+    <label>Description</label>
+    <input type="text" name="description" id="description">
+    <label>Class Activity Id</label>
+    <input type="number" name="classActivity" id="classActivity">
+
+    <input type="submit" value="save" >
+</form>
+
+
+</form>
+
+<h2 th:dir="ltr" th:if="${attachList.isEmpty()}">No Content</h2>
+<table th:if="${not attachList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>fileName</th>
+        <th>fileType</th>
+        <th>fileSize</th>
+        <th>attachTime</th>
+        <th>description</th>
+        <th>classActivity</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${attachList}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.fileName}"></td>
+        <td th:text="${a.fileType}"></td>
+        <td th:text="${a.fileSize}"></td>
+        <td th:text="${a.attachTime}"></td>
+        <td th:text="${a.description}"></td>
+        <td th:text="${a.classActivity}"></td>
+
+        <td>
+            <button th:data-name="${attach.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+            <button th:data-name="${attach.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

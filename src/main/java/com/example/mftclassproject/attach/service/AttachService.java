@@ -9,6 +9,6 @@ public interface AttachService
     void save(Attach attach);
     void update(Attach attach);
     void deleteById(Long id);
-    Attach getById(Long id);
-    List<Attach> getAll();
+    Attach findById(Long id);
+    List<Attach> findAll();
 }

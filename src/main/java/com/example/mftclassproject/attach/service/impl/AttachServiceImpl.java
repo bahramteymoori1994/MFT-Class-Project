@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AttachServiceImpl implements AttachService
-{
+public class AttachServiceImpl implements AttachService {
     private final AttachRepository attachRepository;
 
     public AttachServiceImpl(AttachRepository attachRepository) {
@@ -28,15 +27,17 @@ public class AttachServiceImpl implements AttachService
 
     @Override
     public void deleteById(Long id) {
+        attachRepository.deleteById(id);
     }
 
     @Override
-    public Attach getById(Long id) {
-        return attachRepository.getById(id);
+    public Attach findById(Long id) {
+        return attachRepository.findById(id).get();
     }
 
     @Override
-    public List<Attach> getAll() {
+    public List<Attach> findAll() {
+
         return attachRepository.findAll();
     }
 }
