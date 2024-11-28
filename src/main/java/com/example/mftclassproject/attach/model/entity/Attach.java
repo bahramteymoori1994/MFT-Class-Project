@@ -2,7 +2,7 @@ package com.example.mftclassproject.attach.model.entity;
 
 import com.example.mftclassproject.attach.model.entity.enums.FileType;
 import com.example.mftclassproject.classactivity.model.entity.ClassActivity;
-import com.example.mftclassproject.lesson.model.entity.Lesson;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
