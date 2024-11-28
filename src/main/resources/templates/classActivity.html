@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class Activity</title>
+</head>
+<body>
+<h1> Class Activity </h1>
+
+
+<form th:action="@{/classActivity}" th:method="post" th:object="${classActivity}">
+    <label>Class Activity Name</label>
+    <label for="classActivityName"></label>
+    <input type="text" name="classActivityName" id="classActivityName">
+
+    <label>Description</label>
+    <label for="description"></label>
+    <input type="text" name="description" id="description">
+
+    <label for="dueTime">Due Time</label>
+    <input type="datetime-local" name="dueTime" id="dueTime" >
+
+    <label >Type</label>
+    <label for="type"></label>
+    <select name="type" id="type" >
+        <option th:value="ONLINE">ONLINE</option>
+        <option th:value="IN_PERSON">IN_PERSON</option>
+        <option th:value="BLENDED">BLENDED</option>
+    </select>
+
+    <label>Score</label>
+    <label for="score"></label>
+    <input type="number" name="score" id="score">
+
+    <label>Present Type</label>
+    <label for="presentType"></label>
+    <select name="presentType" id="presentType" >
+        <option th:value="ONLINE">ONLINE</option>
+        <option th:value="IN_PERSON">IN_PERSON</option>
+        <option th:value="BLENDED">BLENDED</option>
+    </select>
+
+    <label>Lesson Session</label>
+    <label for="lessonSession"></label>
+    <input type="number" name="lessonSession" id="lessonSession">
+
+
+    <label>Student Id</label>
+    <input type="number" name="student" id="student">
+
+    <input type="submit" value="save" >
+</form>
+
+<h2 th:dir="ltr" th:if="${classActivityList.isEmpty()}">No Content</h2>
+<table th:if="${not classActivityList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Due Time</th>
+        <th>Type</th>
+        <th>score</th>
+        <th> Present Type</th>
+        <th>Lesson Session</th>
+        <th>Student</th>
+        <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="a : ${classActivityList}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.name}"></td>
+        <td th:text="${a.description}"></td>
+        <td th:text="${a.dueTime}"></td>
+        <td th:text="${a.classType}"></td>
+        <td th:text="${a.score}"></td>
+        <td th:text="${a.presentType}"></td>
+        <td th:text="${a.lessonSession}"></td>
+        <td th:text="${a.student}"></td>
+
+        <td>
+            <button th:data-name="${classActivity.id}" th:onclick="|remove(this.getAttribute('data-name'))|">Remove</button>
+            <button th:data-name="${classActivity.id}" th:onclick="|edit(this.getAttribute('data-name'))|">Edit</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

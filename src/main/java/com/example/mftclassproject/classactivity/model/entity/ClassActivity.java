@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @Entity(name = "classActivityEntity")
 @Setter
 @Getter
@@ -23,12 +25,23 @@ public class ClassActivity
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description", length = 50)
+    private String description;
+
+    @Column(name = "due_time")
+    private LocalDateTime dueTime;
+
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "type")
     private ClassType classType;
 
     @Column(name = "score")
     private int score;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "present_type")
     private ClassType presentType;
 
